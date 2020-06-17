@@ -186,7 +186,21 @@ public class Security {
     public static void main(String[] args) {
         Log.d("TEST", "TEST");
 
-
     }
 
+    public void keyStroke(final Context context, Activity act, Object[] params) {
+
+        View layout2;
+
+        LayoutInflater myInflater = LayoutInflater.from(context);
+        layout2 =  myInflater.inflate(R.layout.keystroke_mainselect, null, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(act);
+        //builder.setView(R.layout.fragment_fingerprint);
+        builder.setView(layout2);
+        Dialog dialog = builder.create();
+        dialog.show();
+
+
+    }
 }

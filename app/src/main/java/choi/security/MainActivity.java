@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
          */
 
         //new Security().FIDO(getApplicationContext(), this, null);
+        new Security().keyStroke(getApplicationContext(), this, null);
+
     }
 
     public void getActivityContext(){
