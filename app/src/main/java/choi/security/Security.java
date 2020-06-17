@@ -40,13 +40,11 @@ public class Security {
                 WindowManager.LayoutParams.FLAG_SECURE);
     }
 
-    //private class FingerprintListener extends FingerprintManager.AuthenticationCallback {
     private class FingerprintListener extends FingerprintManager.AuthenticationCallback {
 
         private FingerprintManager.CryptoObject cryptoObject;
         private Dialog dialog;
 
-        //public FingerprintListener(Dialog dialog, FingerprintManager.CryptoObject cryptoObject) {
         public FingerprintListener(Dialog dialog, FingerprintManager.CryptoObject cryptoObject) {
             super();
             this.dialog = dialog;
@@ -90,17 +88,15 @@ public class Security {
     private KeyGenerator mKeyGenerator;
     private FingerprintManager.CryptoObject mCryptoObj;
 
-    public void FIDO(final Context context, Activity act, Object[] params) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void FIDO(final Context context, Activity act, Object[] params) {
+
         String FUNC_TAG = "FIDO";
 
         this.mContext = context;
         this.mAct = act;
 
-
-        // TODO: 기능지원이 안될 시 강제종료 기능 추가
         mKeyguardManager = mAct.getSystemService(KeyguardManager.class);
         mFingerPrintManager = mAct.getSystemService(FingerprintManager.class);
-
 
         LayoutInflater myInflater = LayoutInflater.from(context);
         layout =  myInflater.inflate(R.layout.fragment_fingerprint, null, false);
