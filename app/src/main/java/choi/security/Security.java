@@ -6,7 +6,11 @@ import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Bundle;
 import android.os.CancellationSignal;
 
 import android.security.keystore.KeyGenParameterSpec;
@@ -14,8 +18,14 @@ import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.KeyStore;
@@ -190,17 +200,88 @@ public class Security {
 
     public void keyStroke(final Context context, Activity act, Object[] params) {
 
-        View layout2;
+        KeyStrokeDialog keyStrokeDialog = new KeyStrokeDialog();
+        keyStrokeDialog.showDialog(act);
+    }
+}
 
-        LayoutInflater myInflater = LayoutInflater.from(context);
-        layout2 =  myInflater.inflate(R.layout.keystroke_mainselect, null, false);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(act);
-        //builder.setView(R.layout.fragment_fingerprint);
-        builder.setView(layout2);
-        Dialog dialog = builder.create();
+class KeyStrokeDialog {
+
+    private Button button_train;                //학습 모드 액티비티로 전환
+    private Button button_test;                 //실험 모드 액티비티로 전환
+    private ImageButton button_setting;         //설정 모드 액티비티로 전환
+    private TextView textview_user;             //현재 사용자 보여주기
+
+    /*
+    private setManage setting;
+    private DBcommand DBmanager;
+    private Properties2 properties;
+
+     */
+
+    public Context context;
+
+    public void showDialog(Activity act) {
+
+        final Dialog dialog = new Dialog(act, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.keystroke_mainselect);
+
+        layoutInit(dialog);
+
+        View.OnClickListener bul = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.button_setting:
+                        //callActivity(SettingActivity.class);
+                        dialog.dismiss();
+                        break;
+                    case R.id.button_train:
+                        //callActivity(TrainActivity.class);
+                        dialog.dismiss();
+                        break;
+                    case R.id.button_test:
+                        //callActivity(TestActivity.class);
+                        dialog.dismiss();
+                        break;
+                }
+            }
+        };
+
+
+        button_test.setOnClickListener(bul);
+        button_train.setOnClickListener(bul);
+        button_setting.setOnClickListener(bul);
+
         dialog.show();
 
+    }
 
+    private void callActivity(Class<?> cls){
+        Intent temp = new Intent(this.context, cls);
+        //temp.putExtra("setting_username", setting.getUsername());           // 세팅 테이블의 사용자 이름만 넘겨서, 해당 이름으로 각 액티비티에서 설정 값 및 학습 데이터 불러오기
+        context.startActivity(temp);
+    }
+
+    // 액티비티 실행시 레이아웃 초기화 - 버튼, 텍스트 뷰 및 디비
+    private void layoutInit(Dialog dialog){
+        button_train = (Button)dialog.findViewById(R.id.button_train);
+        button_test = (Button)dialog.findViewById(R.id.button_test);
+        button_setting = (ImageButton)dialog.findViewById(R.id.button_setting);
+        textview_user = (TextView)dialog.findViewById(R.id.textview_user);
+
+        /*
+        //프라퍼티 생성 - DB
+        properties = new Properties2();
+        properties.setDatabaseName("KeyStroke2017-2.db");
+        //sqllite 생성
+        DBmanager = new DBcommand(getApplicationContext(), properties.getDatabaseName(), null, 1);
+
+        setting = new setManage();          // 사용자 설정 클래스
+
+         */
     }
 }
