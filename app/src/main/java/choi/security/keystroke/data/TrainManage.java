@@ -1,9 +1,9 @@
-package choi.security.data;
+package choi.security.keystroke.data;
 
 import java.util.ArrayList;
 
-import choi.security.alg.ClassifierDistance;
-import choi.security.util.Converter;
+import choi.security.keystroke.alg.ClassifierDistance;
+import choi.security.keystroke.util.Converter;
 
 /**
  * Created by Nate on 2017-10-17.

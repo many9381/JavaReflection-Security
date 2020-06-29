@@ -1,4 +1,4 @@
-package choi.security.data;
+package choi.security.keystroke.data;
 
 public class setManage {
     private String username;

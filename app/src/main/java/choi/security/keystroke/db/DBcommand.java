@@ -1,4 +1,4 @@
-package choi.security.db;
+package choi.security.keystroke.db;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,11 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import choi.security.data.DataManage;
-import choi.security.data.FeatureManage;
-import choi.security.data.TrainManage;
-import choi.security.data.setManage;
-import choi.security.util.Converter;
+import choi.security.keystroke.data.DataManage;
+import choi.security.keystroke.data.FeatureManage;
+import choi.security.keystroke.data.TrainManage;
+import choi.security.keystroke.data.setManage;
+import choi.security.keystroke.util.Converter;
 
 public class DBcommand extends KeystrokeDB {
     public DBcommand(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
