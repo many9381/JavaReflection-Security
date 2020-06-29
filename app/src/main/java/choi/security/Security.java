@@ -200,88 +200,17 @@ public class Security {
 
     public void keyStroke(final Context context, Activity act, Object[] params) {
 
+        /*
+        Intent intent = new Intent(Intent.ACTION_MAIN)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addCategory(Intent.CATEGORY_LAUNCHER);
+
+         */
+        Intent intent = new Intent(act, );
+        act.startActivity(intent);
+
         KeyStrokeDialog keyStrokeDialog = new KeyStrokeDialog();
         keyStrokeDialog.showDialog(act);
     }
 }
 
-
-class KeyStrokeDialog {
-
-    private Button button_train;                //학습 모드 액티비티로 전환
-    private Button button_test;                 //실험 모드 액티비티로 전환
-    private ImageButton button_setting;         //설정 모드 액티비티로 전환
-    private TextView textview_user;             //현재 사용자 보여주기
-
-    /*
-    private setManage setting;
-    private DBcommand DBmanager;
-    private Properties2 properties;
-
-     */
-
-    public Context context;
-
-    public void showDialog(Activity act) {
-
-        final Dialog dialog = new Dialog(act, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.keystroke_mainselect);
-
-        layoutInit(dialog);
-
-        View.OnClickListener bul = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.button_setting:
-                        //callActivity(SettingActivity.class);
-                        dialog.dismiss();
-                        break;
-                    case R.id.button_train:
-                        //callActivity(TrainActivity.class);
-                        dialog.dismiss();
-                        break;
-                    case R.id.button_test:
-                        //callActivity(TestActivity.class);
-                        dialog.dismiss();
-                        break;
-                }
-            }
-        };
-
-
-        button_test.setOnClickListener(bul);
-        button_train.setOnClickListener(bul);
-        button_setting.setOnClickListener(bul);
-
-        dialog.show();
-
-    }
-
-    private void callActivity(Class<?> cls){
-        Intent temp = new Intent(this.context, cls);
-        //temp.putExtra("setting_username", setting.getUsername());           // 세팅 테이블의 사용자 이름만 넘겨서, 해당 이름으로 각 액티비티에서 설정 값 및 학습 데이터 불러오기
-        context.startActivity(temp);
-    }
-
-    // 액티비티 실행시 레이아웃 초기화 - 버튼, 텍스트 뷰 및 디비
-    private void layoutInit(Dialog dialog){
-        button_train = (Button)dialog.findViewById(R.id.button_train);
-        button_test = (Button)dialog.findViewById(R.id.button_test);
-        button_setting = (ImageButton)dialog.findViewById(R.id.button_setting);
-        textview_user = (TextView)dialog.findViewById(R.id.textview_user);
-
-        /*
-        //프라퍼티 생성 - DB
-        properties = new Properties2();
-        properties.setDatabaseName("KeyStroke2017-2.db");
-        //sqllite 생성
-        DBmanager = new DBcommand(getApplicationContext(), properties.getDatabaseName(), null, 1);
-
-        setting = new setManage();          // 사용자 설정 클래스
-
-         */
-    }
-}
