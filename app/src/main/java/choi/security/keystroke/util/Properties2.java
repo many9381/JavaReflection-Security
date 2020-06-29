@@ -1,4 +1,4 @@
-package choi.security.util;
+package choi.security.keystroke.util;
 
 public class Properties2 {
     private String databaseName;		//database 이름

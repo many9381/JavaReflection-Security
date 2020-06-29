@@ -1,11 +1,11 @@
-package choi.security.alg;
+package choi.security.keystroke.alg;
 
 import android.util.Log;
 
 import java.util.ArrayList;
 
-import choi.security.data.FeatureManage;
-import choi.security.data.TrainManage;
+import choi.security.keystroke.data.FeatureManage;
+import choi.security.keystroke.data.TrainManage;
 
 /**
  * Created by Nate on 2017-10-17.

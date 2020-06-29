@@ -1,4 +1,4 @@
-package choi.security.data;
+package choi.security.keystroke.data;
 
 import java.util.ArrayList;
 
