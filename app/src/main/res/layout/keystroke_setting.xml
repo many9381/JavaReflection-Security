@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".keystroke.KeySettingActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="460dp"
+            android:id="@+id/scrollView">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingRight="5dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="USER INFORMATION"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:textSize="25dp"
+                            android:id="@+id/textView2" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="User : "
+                            android:textSize="18dp"
+                            android:id="@+id/textView3" />
+                        <EditText
+                            android:layout_width="88dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:id="@+id/edittext_user"
+                            android:enabled="false"/>
+                        <Button
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginRight="2dp"
+                            android:text="Change"
+                            android:textSize="18dp"
+                            android:id="@+id/button_userchange" />
+                        <Button
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:text="New"
+                            android:textSize="18dp"
+                            android:id="@+id/button_new"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/scrollView"
+                        android:layout_alignParentStart="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="P I N  : "
+                            android:textSize="18dp"
+                            android:id="@+id/textView4" />
+
+                        <EditText
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:gravity="center"
+                            android:ems="6"
+                            android:maxLength="6"
+                            android:enabled="false"
+                            android:id="@+id/edittext_pin"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dip"
+                    android:background="#90909090"
+                    android:layout_marginTop="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="TRAIN INFORMATION"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:textSize="25dp"
+                        />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="290dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Posture"
+                            android:textSize="18dp"
+                            android:gravity="left"/>
+                        <CheckBox
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkbox_posture"
+                            android:enabled="false" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="290dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18dp"
+                            android:text="Training data delete"
+                            android:gravity="left"/>
+                        <CheckBox
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkbox_learned_data_delete"
+                            android:enabled="false" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="290dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Retrain with normal user "
+                            android:textSize="18dp"
+                            android:gravity="left"/>
+                        <CheckBox
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkbox_realuser_data_add"
+                            android:enabled="true"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="290dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Outlier delete"
+                            android:textSize="18dp"
+                            android:gravity="left"/>
+                        <CheckBox
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checkbox_outlier"
+                            android:enabled="false"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="270dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Sliding window"
+                            android:textSize="18dp"
+                            android:gravity="center|left"/>
+
+                        <Button
+                            android:layout_width="45dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginBottom="1dp"
+                            android:text="5"
+                            android:id="@+id/button_slidingwindow" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="270dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Train input count "
+                            android:textSize="18dp"
+                            android:gravity="center|left"/>
+                        <Button
+                            android:layout_width="45dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="5"
+                            android:id="@+id/button_pinCount" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Target Feature"
+                            android:textSize="18dp"
+                            android:gravity="center|left"/>
+                        <Button
+                            android:layout_width="115dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:id="@+id/button_feature"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="all"
+                            android:layout_gravity="right"
+                            android:enabled="false"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="fill_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Classifier"
+                            android:textSize="18dp"
+                            android:gravity="center|left"/>
+                        <Button
+                            android:layout_width="115dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/black_button"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginTop="1dp"
+                            android:id="@+id/button_classifier"
+                            android:text="manha"
+                            android:enabled="false"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="#90909090"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="bottom">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_button"
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:text="DB-file Save"
+                android:id="@+id/button_filesave"/>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_button"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:text="Confirm"
+                android:id="@+id/button_confirm"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="choi.security">
+
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -14,13 +17,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".keystroke.KeyMainActivity"
+            android:exported="true" />
+        <activity android:name=".keystroke.KeyTrainActivity" />
+        <activity android:name=".keystroke.KeySettingActivity"/>
+        <activity android:name=".keystroke.KeyTestActivity"/>
     </application>
-
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
 
 </manifest>
