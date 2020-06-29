@@ -6,7 +6,11 @@ import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Bundle;
 import android.os.CancellationSignal;
 
 import android.security.keystore.KeyGenParameterSpec;
@@ -14,8 +18,14 @@ import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.KeyStore;
@@ -186,7 +196,21 @@ public class Security {
     public static void main(String[] args) {
         Log.d("TEST", "TEST");
 
-
     }
 
+    public void keyStroke(final Context context, Activity act, Object[] params) {
+
+        /*
+        Intent intent = new Intent(Intent.ACTION_MAIN)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addCategory(Intent.CATEGORY_LAUNCHER);
+
+         */
+        Intent intent = new Intent(act, );
+        act.startActivity(intent);
+
+        KeyStrokeDialog keyStrokeDialog = new KeyStrokeDialog();
+        keyStrokeDialog.showDialog(act);
+    }
 }
+
