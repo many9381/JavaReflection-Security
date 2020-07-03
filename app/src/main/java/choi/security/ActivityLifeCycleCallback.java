@@ -47,8 +47,6 @@ public class ActivityLifeCycleCallback implements Application.ActivityLifecycleC
     @Override
     public void onActivityResumed(Activity activity) {
         //Log.d(activity.getLocalClassName(), "RESUME !!");
-
-        Toast.makeText(activity, TFCaptureLock.toString(), Toast.LENGTH_LONG).show();
         if(!TFCaptureLock) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
