@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".keystroke.KeyMainActivity"
-            android:exported="true" />
-        <activity android:name=".keystroke.KeyTrainActivity" />
+            android:exported="true"/>
+        <activity android:name=".keystroke.KeyTrainActivity"/>
         <activity android:name=".keystroke.KeySettingActivity"/>
         <activity android:name=".keystroke.KeyTestActivity"/>
     </application>

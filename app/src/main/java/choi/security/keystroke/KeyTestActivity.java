@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import choi.security.ActivityLifeCycleCallback;
 import choi.security.R;
 import choi.security.keystroke.alg.ClassifierDistance;
 import choi.security.keystroke.api.APIConst;
@@ -71,6 +72,8 @@ public class KeyTestActivity extends AppCompatActivity {
 
     private String result_msg = "";
 
+    private ActivityLifeCycleCallback activityLifeCycleCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +81,17 @@ public class KeyTestActivity extends AppCompatActivity {
         setContentView(R.layout.keystroke_test);
 
         layoutInit();
-//        loadIntent();
+        loadIntent();
         loadSetting();
         loadTrainData();
+
+
+
+        if(activityLifeCycleCallback == null){
+            activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
+            Log.d("KeyTestAcitivity", "Create Callback Instance");
+        }
+
         View.OnTouchListener buttonlistener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -387,12 +398,15 @@ public class KeyTestActivity extends AppCompatActivity {
         sm.unregisterListener(sel);
     }
 
+
+    @Override
     public void onBackPressed() {
+        super.onBackPressed();
         if (reqCode == APIConst.INTENT_KEYSTROKE)
             processRequest(reqCode);
         else{
-            Intent intent = new Intent(KeyTestActivity.this, KeyMainActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(KeyTestActivity.this, KeyMainActivity.class);
+            //startActivity(intent);
             finish();
         }
     }
