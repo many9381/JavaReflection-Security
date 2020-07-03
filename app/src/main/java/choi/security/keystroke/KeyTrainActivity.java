@@ -281,9 +281,12 @@ public class KeyTrainActivity extends AppCompatActivity {
         sm.unregisterListener(sel);
     }
 
+
+    @Override
     public void onBackPressed() {
-        Intent intent = new Intent(KeyTrainActivity.this, KeyMainActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
         finish();
     }
+
+
 }
