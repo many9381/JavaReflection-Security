@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 import choi.security.ActivityLifeCycleCallback;
 import choi.security.R;
+import choi.security.Security;
 import choi.security.keystroke.data.setManage;
 import choi.security.keystroke.db.DBcommand;
 import choi.security.keystroke.util.Properties2;
@@ -34,7 +36,7 @@ public class KeyMainActivity extends AppCompatActivity {
 
     private DBcommand DBmanager;
     private Properties2 properties;
-    private ActivityLifeCycleCallback activityLifeCycleCallback;
+    private String activityLifeCycleCallback = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +44,17 @@ public class KeyMainActivity extends AppCompatActivity {
         setContentView(R.layout.keystroke_mainselect);
 
 
-        /*
-            ActivityLifeCycleCallback 를 등록하는 과정
-            Security 앱과 Reflection 앱의 singleton 따로 동작하는것 같아보임
-            Reflection 의 callback singleton 을 전달 받는 것으로 구현
-         */
-        if(getIntent().getExtras() != null && activityLifeCycleCallback == null) {
-            activityLifeCycleCallback = (ActivityLifeCycleCallback) getIntent().getSerializableExtra("callBack");
-            Log.d("KeyMainAcitivity", "Got Intent");
+        if(activityLifeCycleCallback == null) {
+            Log.d("KeyMain", "NULL");
+            activityLifeCycleCallback = "!";
         }
-        else if(activityLifeCycleCallback == null){
-            activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
-            Log.d("KeyMainAcitivity", "Create Callback Instance");
+        else {
+            Log.d("KeyMain", "NOT NULL");
         }
-        getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
 
+        // 임시 조치
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         layoutInit();           // 레이아웃 초기화
         checkSettingDB();       // 설정 테이블 확인
@@ -66,6 +64,7 @@ public class KeyMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.button_setting:
+                        //activityLifeCycleCallback.switchCapturelock();
                         callActivity(KeySettingActivity.class);
                         //finish();
                         break;
@@ -88,8 +87,6 @@ public class KeyMainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.getApplication().unregisterActivityLifecycleCallbacks(activityLifeCycleCallback);
-
     }
 
     private void callActivity(Class<?> cls){

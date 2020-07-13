@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
         Security test = new Security();
         //test.FIDO(this, null);
 
-        test.keyStroke(this, null);
-        //test.captureLock(this, null);
+        //test.keyStroke(this, null);
+        test.captureLock(this, null);
 
 
         //new Security().FIDO(this, this, null);

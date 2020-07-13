@@ -10,14 +10,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
+import android.os.IBinder;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,9 +35,10 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+
 import choi.security.keystroke.KeyMainActivity;
 
-public class Security {
+public class Security extends Application{
     private static final String CLASS_TAG = Security.class.getSimpleName();
     private static final String KEY_NAME = "example_key";
     Activity mAct;
@@ -44,14 +49,39 @@ public class Security {
     */
     public void captureLock(Activity act, Object[] params) {
 
+
         if(activityLifeCycleCallback == null){
             activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
-            Log.d("captureLock", activityLifeCycleCallback.toString());
-        }
-        // True False 스위치 기능
-        activityLifeCycleCallback.switchCapturelock();
+            Log.d(CLASS_TAG, activityLifeCycleCallback.toString());
 
-        act.getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
+            /*
+            Intent intent = new Intent( mContext, MonitorService.class);
+            mContext.startService(intent);
+             */
+
+            act.getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
+            activityLifeCycleCallback.switchCapturelock();
+
+        }
+        else {
+            //activityLifeCycleCallback.switchCapturelock();
+            act.getApplication().unregisterActivityLifecycleCallbacks(activityLifeCycleCallback);
+        }
+
+        //activityLifeCycleCallback.switchCapturelock();
+        // True False 스위치 기능
+
+    }
+
+    public void getTargetPreferences(Activity act) {
+
+        if(Build.VERSION.SDK_INT >= 28) {
+            // encrypted preference
+        }
+        else {
+            act.getApplicationContext().getSharedPreferences("captureLock", Context.MODE_PRIVATE);
+        }
+
 
     }
 
@@ -101,7 +131,8 @@ public class Security {
 
         if(mContext == null) {
             try {
-                mContext = act.createPackageContext("choi.security", Context.CONTEXT_IGNORE_SECURITY);
+                mContext = act.createPackageContext("choi.security", Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
+
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
@@ -124,14 +155,6 @@ public class Security {
 
         mKeyguardManager = mAct.getSystemService(KeyguardManager.class);
         mFingerPrintManager = mAct.getSystemService(FingerprintManager.class);
-
-        Context test = null;
-        try {
-            test = act.createPackageContext("choi.security", Context.CONTEXT_IGNORE_SECURITY);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
 
         View layout = getSecurityLayout(act, R.layout.fragment_fingerprint);
 
@@ -221,23 +244,17 @@ public class Security {
 
         final String clsName =  "choi.security";
         final String actName = "keystroke.KeyMainActivity";
+        /*
         ComponentName component =
+
                 new ComponentName(clsName, String.format("%s.%s", clsName, actName));
+         */
 
-        Intent intent = new Intent(Intent.ACTION_MAIN)
-                .setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                .addCategory(Intent.CATEGORY_LAUNCHER)
-                .setComponent(component);
-
-        if(activityLifeCycleCallback == null) {
-            Log.d("Keystroke", "NULL");
-            activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
-        }
-
-
-        if(activityLifeCycleCallback != null) {
-            intent.putExtra("callBack", activityLifeCycleCallback);
-        }
+        Intent intent = new Intent()
+                //.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setClassName(clsName, String.format("%s.%s", clsName, actName));
+                //.setComponent(component);
 
         act.startActivity(intent);
 
