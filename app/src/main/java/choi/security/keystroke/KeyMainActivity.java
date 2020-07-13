@@ -3,14 +3,19 @@ package choi.security.keystroke;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Set;
 
+import choi.security.ActivityLifeCycleCallback;
 import choi.security.R;
+import choi.security.Security;
 import choi.security.keystroke.data.setManage;
 import choi.security.keystroke.db.DBcommand;
 import choi.security.keystroke.util.Properties2;
@@ -31,11 +36,25 @@ public class KeyMainActivity extends AppCompatActivity {
 
     private DBcommand DBmanager;
     private Properties2 properties;
+    private String activityLifeCycleCallback = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.keystroke_mainselect);
+
+
+        if(activityLifeCycleCallback == null) {
+            Log.d("KeyMain", "NULL");
+            activityLifeCycleCallback = "!";
+        }
+        else {
+            Log.d("KeyMain", "NOT NULL");
+        }
+
+        // 임시 조치
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         layoutInit();           // 레이아웃 초기화
         checkSettingDB();       // 설정 테이블 확인
@@ -45,16 +64,17 @@ public class KeyMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.button_setting:
+                        //activityLifeCycleCallback.switchCapturelock();
                         callActivity(KeySettingActivity.class);
-                        finish();
+                        //finish();
                         break;
                     case R.id.button_train:
                         callActivity(KeyTrainActivity.class);
-                        finish();
+                        //finish();
                         break;
                     case R.id.button_test:
                         callActivity(KeyTestActivity.class);
-                        finish();
+                        //finish();
                         break;
                 }
             }
@@ -64,9 +84,16 @@ public class KeyMainActivity extends AppCompatActivity {
         button_setting.setOnClickListener(bul);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     private void callActivity(Class<?> cls){
-        Intent temp = new Intent(KeyMainActivity.this, cls);
-        temp.putExtra("setting_username", setting.getUsername());           // 세팅 테이블의 사용자 이름만 넘겨서, 해당 이름으로 각 액티비티에서 설정 값 및 학습 데이터 불러오기
+        Intent temp = new Intent(this, cls);
+        //temp.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        temp.putExtra("setting_username", setting.getUsername()); // 세팅 테이블의 사용자 이름만 넘겨서, 해당 이름으로 각 액티비티에서 설정 값 및 학습 데이터 불러오기
+        //temp.putExtra("callBack", activityLifeCycleCallback);
         startActivity(temp);
     }
 
@@ -94,6 +121,7 @@ public class KeyMainActivity extends AppCompatActivity {
             textview_user.setText(setting.getUsername());
         }
     }
+
 
     //설정 테이블 값 호출
     public void loadSetting(){

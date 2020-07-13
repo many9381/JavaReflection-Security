@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 
+import choi.security.ActivityLifeCycleCallback;
 import choi.security.R;
 import choi.security.keystroke.data.setManage;
 import choi.security.keystroke.db.DBcommand;
 import choi.security.keystroke.util.Properties2;
+
 
 public class KeySettingActivity extends AppCompatActivity {
 
@@ -56,12 +59,17 @@ public class KeySettingActivity extends AppCompatActivity {
     // TrainResult 관련 설정
     private String targetFeature; // time, acc, gyr, all
     private String Classifier; // 맨하튼
+    private ActivityLifeCycleCallback activityLifeCycleCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.keystroke_setting);
         setTitle("Keystroke2017 - Setting");
+
+        // 임시 조치
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         layoutInit();
         loadIntent();
@@ -200,9 +208,14 @@ public class KeySettingActivity extends AppCompatActivity {
     }
 
     //뒤로가기 버튼 - 해당 사용자 설정이 변경된 경우, 디비 삭제후 다시 삽입하는 방식으로 인텐트 호출시 사용자 이름 전달할 필요 없음
+
+
+    @Override
     public void onBackPressed() {
-        Intent intent = new Intent(KeySettingActivity.this, KeyMainActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
+        //Intent intent = new Intent(KeySettingActivity.this, KeyMainActivity.class);
+        //startActivity(intent);
         finish();
+
     }
 }
