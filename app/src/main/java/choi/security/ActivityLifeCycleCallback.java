@@ -31,6 +31,9 @@ public class ActivityLifeCycleCallback  implements Application.ActivityLifecycle
     }
 
     public static ActivityLifeCycleCallback getInstance() {
+
+
+
         return LazyHolder.INSTANCE;
     }
 
@@ -45,6 +48,7 @@ public class ActivityLifeCycleCallback  implements Application.ActivityLifecycle
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         Log.d(activity.getLocalClassName(), "CREATE !!");
+
 
         if(!TFCaptureLock) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);

@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import java.security.KeyStore;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -42,31 +43,53 @@ public class Security extends Application{
     private static final String CLASS_TAG = Security.class.getSimpleName();
     private static final String KEY_NAME = "example_key";
     Activity mAct;
-    ActivityLifeCycleCallback activityLifeCycleCallback;
+
+    private HashMap<String, Boolean> getSecuritySwitch(Object[] params) {
+        HashMap<String, Boolean> hashM = null;
+        if(params != null) {
+            hashM = (HashMap<String, Boolean>) params[0];
+            Log.d(CLASS_TAG, "SecuritySwitch" + hashM.get("captureLock"));
+        }
+        return hashM;
+    }
+
 
     /*
         스크린샷 capture 방지
     */
     public void captureLock(Activity act, Object[] params) {
 
+        ActivityLifeCycleCallback activityLifeCycleCallback;
+        HashMap<String, Boolean> securitySwitch = getSecuritySwitch(params);
 
-        if(activityLifeCycleCallback == null){
-            activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
-            Log.d(CLASS_TAG, activityLifeCycleCallback.toString());
+        activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
+
+        if(securitySwitch == null) {
+            Log.d(CLASS_TAG, "SecuritySwitch NULL !!  ");
+            return;
+        }
+        if(securitySwitch.get("captureLock") == false) {
+            securitySwitch.put("captureLock", true);
+            activityLifeCycleCallback.switchCapturelock();
+            Log.d(CLASS_TAG, activityLifeCycleCallback.toString() + " NEW false !!  " + activityLifeCycleCallback.TFCaptureLock.toString());
+            act.getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
+        }
+        else {
+            securitySwitch.put("captureLock", false);
+            Log.d(CLASS_TAG, activityLifeCycleCallback.toString() + " NEW true !!  " + activityLifeCycleCallback.TFCaptureLock.toString());
+            act.getApplication().unregisterActivityLifecycleCallbacks(activityLifeCycleCallback);
+        }
+
 
             /*
             Intent intent = new Intent( mContext, MonitorService.class);
             mContext.startService(intent);
              */
 
-            act.getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
-            activityLifeCycleCallback.switchCapturelock();
+        //
 
-        }
-        else {
-            //activityLifeCycleCallback.switchCapturelock();
-            act.getApplication().unregisterActivityLifecycleCallbacks(activityLifeCycleCallback);
-        }
+
+
 
         //activityLifeCycleCallback.switchCapturelock();
         // True False 스위치 기능
@@ -250,10 +273,13 @@ public class Security extends Application{
                 new ComponentName(clsName, String.format("%s.%s", clsName, actName));
          */
 
+        HashMap<String, Boolean> securitySwitch = getSecuritySwitch(params);
+
         Intent intent = new Intent()
                 //.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 //.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setClassName(clsName, String.format("%s.%s", clsName, actName));
+                .setClassName(clsName, String.format("%s.%s", clsName, actName))
+                .putExtra("securitySwitch", securitySwitch);
                 //.setComponent(component);
 
         act.startActivity(intent);
