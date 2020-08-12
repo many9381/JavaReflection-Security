@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import choi.security.ActivityLifeCycleCallback;
@@ -36,7 +37,7 @@ public class KeyMainActivity extends AppCompatActivity {
 
     private DBcommand DBmanager;
     private Properties2 properties;
-    private String activityLifeCycleCallback = null;
+    private ActivityLifeCycleCallback activityLifeCycleCallback = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,23 @@ public class KeyMainActivity extends AppCompatActivity {
         setContentView(R.layout.keystroke_mainselect);
 
 
-        if(activityLifeCycleCallback == null) {
-            Log.d("KeyMain", "NULL");
-            activityLifeCycleCallback = "!";
+        Intent intent = getIntent();
+        HashMap<String, Boolean> securitySwitch = (HashMap<String, Boolean>) intent.getSerializableExtra("securitySwitch");
+
+        activityLifeCycleCallback = ActivityLifeCycleCallback.getInstance();
+
+        if(securitySwitch.get("captureLock") == true) {
+            activityLifeCycleCallback.switchCapturelock();
+            Log.d("KeyMainAct", activityLifeCycleCallback.toString() + " captureLock ON !!  " + activityLifeCycleCallback.TFCaptureLock.toString());
         }
         else {
-            Log.d("KeyMain", "NOT NULL");
+            activityLifeCycleCallback.switchCapturelock();
+            Log.d("KeyMainAct", activityLifeCycleCallback.toString() + " captureLock OFF !!  " + activityLifeCycleCallback.TFCaptureLock.toString());
         }
+
+        this.getApplication().registerActivityLifecycleCallbacks(activityLifeCycleCallback);
+
+
 
         // 임시 조치
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
@@ -87,6 +98,8 @@ public class KeyMainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        this.getApplication().unregisterActivityLifecycleCallbacks(activityLifeCycleCallback);
     }
 
     private void callActivity(Class<?> cls){

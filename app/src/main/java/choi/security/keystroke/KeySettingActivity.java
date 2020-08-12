@@ -68,8 +68,11 @@ public class KeySettingActivity extends AppCompatActivity {
         setTitle("Keystroke2017 - Setting");
 
         // 임시 조치
+        /*
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
+
+         */
 
         layoutInit();
         loadIntent();

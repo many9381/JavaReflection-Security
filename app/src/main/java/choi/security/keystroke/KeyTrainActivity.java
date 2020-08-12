@@ -58,8 +58,11 @@ public class KeyTrainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.keystroke_train);
         // 임시 조치
+        /*
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
+
+         */
 
         layoutInit();
         loadIntent();
